@@ -9,4 +9,6 @@ add_executable(craftinginterpreters_compiler
         chunk.c
         memory.h
         memory.c
-        debug.c)
+        debug.c
+        value.h
+        value.c)
