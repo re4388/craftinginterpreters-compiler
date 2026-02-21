@@ -11,4 +11,6 @@ add_executable(craftinginterpreters_compiler
         memory.c
         debug.c
         value.h
-        value.c)
+        value.c
+        vm.h
+        vm.c)
