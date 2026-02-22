@@ -42,6 +42,7 @@ static InterpretResult run() {
 
 
     for (;;) {
+
 #ifdef DEBUG_TRACE_EXECUTION
         printf("          ");
         for (Value* slot = vm.stack; slot < vm.stackTop; slot++) {
@@ -83,6 +84,21 @@ static InterpretResult run() {
 
 
 InterpretResult interpret(const char* source) {
-    compile(source);
-    return INTERPRET_OK;
+    Chunk chunk;
+    initChunk(&chunk);
+
+    // The compiler will take the user’s program and fill up the chunk with bytecode
+    if (!compile(source, &chunk)) {
+        freeChunk(&chunk);
+        return INTERPRET_COMPILE_ERROR;
+    }
+
+    // we send the completed chunk over to the VM to be executed
+    vm.chunk = &chunk;
+    vm.ip = vm.chunk->code;
+
+    InterpretResult result = run();
+
+    freeChunk(&chunk);
+    return result;
 }

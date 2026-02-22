@@ -184,8 +184,10 @@ static Token string() {
 
 Token scanToken() {
     skipWhitespace();
-    // each call to this function scans a complete token, we know we are at the beginning of a new token when we enter the function.
-    // Thus, we set scanner.start to point to the current character so we remember where the lexeme we’re about to scan starts.
+    // each call to this function scans a complete token
+    // we know we are at the beginning of a new token when we enter the function.
+    // Thus, we set scanner.start to point to the current character
+    // so we remember where the lexeme we’re about to scan starts.
     scanner.start = scanner.current;
 
     if (isAtEnd()) return makeToken(TOKEN_EOF);
