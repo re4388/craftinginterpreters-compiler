@@ -15,4 +15,6 @@ add_executable(craftinginterpreters_compiler
         vm.h
         vm.c
         compiler.c
-        scanner.c)
+        scanner.c
+        object.h
+        object.c)

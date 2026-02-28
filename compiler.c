@@ -203,6 +203,12 @@ static void number() {
     emitConstant(NUMBER_VAL(value));
 }
 
+static void string() {
+    // The + 1 and - 2 parts trim the leading and trailing quotation marks.
+    emitConstant(OBJ_VAL(copyString(parser.previous.start + 1,
+                                    parser.previous.length - 2)));
+}
+
 // write the negate instruction after its operand’s bytecode
 // since the appears on the left, but this is for the order of execution (for stack-based vm)
 static void unary() {
@@ -251,7 +257,7 @@ ParseRule rules[] = {
   [TOKEN_LESS]          = {NULL,     binary,   PREC_COMPARISON},
   [TOKEN_LESS_EQUAL]    = {NULL,     binary,   PREC_COMPARISON},
   [TOKEN_IDENTIFIER]    = {NULL,     NULL,   PREC_NONE},
-  [TOKEN_STRING]        = {NULL,     NULL,   PREC_NONE},
+  [TOKEN_STRING]        = {string,     NULL,   PREC_NONE},
   [TOKEN_NUMBER]        = {number,   NULL,   PREC_NONE},
   [TOKEN_AND]           = {NULL,     NULL,   PREC_NONE},
   [TOKEN_CLASS]         = {NULL,     NULL,   PREC_NONE},

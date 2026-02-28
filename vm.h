@@ -20,6 +20,7 @@ typedef struct {
     // we can indicate that the stack is empty by pointing at element zero in the array
     // If we pointed to the top element, then for an empty stack we’d need to point at element -1
     Value* stackTop;
+    Obj* objects; //  a pointer to the head of the linked list for gc
 } VM;
 
 
@@ -29,6 +30,7 @@ typedef enum {
     INTERPRET_RUNTIME_ERROR
   } InterpretResult;
 
+extern VM vm;
 
 void initVM();
 void freeVM();
