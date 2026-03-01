@@ -10,12 +10,15 @@ add_executable(craftinginterpreters_compiler
         memory.h
         memory.c
         debug.c
+        debug.h
         value.h
         value.c
         vm.h
         vm.c
         compiler.c
+        compiler.h
         scanner.c
+        scanner.h
         object.h
         object.c
         table.h

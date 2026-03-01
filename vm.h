@@ -22,6 +22,8 @@ typedef struct {
     // If we pointed to the top element, then for an empty stack we’d need to point at element -1
     Value* stackTop;
 
+    Table globals; // global varibale
+
     // to reliably deduplicate all strings, the VM needs to be able to find every string that’s created
     Table strings;
 
