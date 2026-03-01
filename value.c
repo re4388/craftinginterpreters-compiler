@@ -44,13 +44,11 @@ bool valuesEqual(Value a, Value b) {
         case VAL_BOOL:   return AS_BOOL(a) == AS_BOOL(b);
         case VAL_NIL:    return true;
         case VAL_NUMBER: return AS_NUMBER(a) == AS_NUMBER(b);
-        case VAL_OBJ: {
-            ObjString* aString = AS_STRING(a);
-            ObjString* bString = AS_STRING(b);
-            return aString->length == bString->length &&
-                memcmp(aString->chars, bString->chars,
-                       aString->length) == 0;
-        }
+
+        // we’ve interned all the strings, we can take advantage of it in the bytecode interpreter.
+        // When a user does == on two objects that happen to be strings,
+        // we don’t need to test the characters
+        case VAL_OBJ:    return AS_OBJ(a) == AS_OBJ(b);
         default:         return false; // Unreachable.
     }
 }

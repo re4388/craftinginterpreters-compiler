@@ -2,6 +2,7 @@
 #define clox_vm_h
 
 #include "chunk.h"
+#include "table.h"
 #include "value.h"
 #define STACK_MAX 256
 
@@ -20,6 +21,10 @@ typedef struct {
     // we can indicate that the stack is empty by pointing at element zero in the array
     // If we pointed to the top element, then for an empty stack we’d need to point at element -1
     Value* stackTop;
+
+    // to reliably deduplicate all strings, the VM needs to be able to find every string that’s created
+    Table strings;
+
     Obj* objects; //  a pointer to the head of the linked list for gc
 } VM;
 

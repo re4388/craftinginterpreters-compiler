@@ -33,9 +33,11 @@ static void runtimeError(const char* format, ...) {
 void initVM() {
     resetStack();
     vm.objects = NULL;
+    initTable(&vm.strings);
 }
 
 void freeVM() {
+    freeTable(&vm.strings);
     freeObjects();
 }
 
@@ -149,9 +151,15 @@ static InterpretResult run() {
                 push(BOOL_VAL(valuesEqual(a, b)));
                 break;
             }
-            case OP_RETURN: {
+            case OP_PRINT: {
+                // When the interpreter reaches this instruction, it has already executed the code for the expression,
+                // leaving the result value on top of the stack. Now we simply pop and print it.
                 printValue(pop());
                 printf("\n");
+                break;
+            }
+            case OP_RETURN: {
+                // Exit interpreter.
                 return INTERPRET_OK;
             }
         }
